@@ -134,6 +134,8 @@ const universitySistems = {
 
   // 11.добавить оценки студентам за курсы
   addMarkToStudent: function (studentName, courseName, mark) {
+    try {
+      this.validateMark(mark);
     const student = this.student.find(
       (student) => student.name === studentName
     );
@@ -150,6 +152,10 @@ const universitySistems = {
     } else {
       console.log("student not found");
     }
+  } catch (error) {
+    console.error ('invalid mark', error.message)
+  }
+
   },
 
   // 12. получение среднего балла студента по всем курсам
@@ -182,6 +188,16 @@ const universitySistems = {
       console.log("student not found");
     }
   },
+// 14. валидация оценок
+validateMark: function (mark) {
+  if(mark < 0 || mark > 5 || typeof mark !== 'number') {
+    throw new Error('invalid mark')
+  }
+},
+
+
+
+
 };
 
 // манипуляции со студентами и курсами-------------
